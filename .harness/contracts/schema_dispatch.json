@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["meta", "work_orders"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["version"],
+      "additionalProperties": false,
+      "properties": {
+        "version": {"type": "string", "const": "harness.v1"}
+      }
+    },
+    "work_orders": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/work_order"}
+    }
+  },
+  "definitions": {
+    "work_order": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "ready",
+        "done",
+        "role",
+        "priority",
+        "scope",
+        "steps",
+        "acceptance",
+        "artifacts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "ready": {"type": "boolean"},
+        "done": {"type": "boolean"},
+        "role": {"type": "string", "minLength": 1},
+        "priority": {"type": "integer"},
+        "depends_on": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "default": []
+        },
+        "scope": {
+          "type": "object",
+          "required": ["allow_globs", "deny_globs"],
+          "additionalProperties": false,
+          "properties": {
+            "allow_globs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "deny_globs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "acceptance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "cmd"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "cmd": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "artifacts": {
+          "type": "object",
+          "required": ["receipt_required"],
+          "additionalProperties": false,
+          "properties": {
+            "receipt_required": {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

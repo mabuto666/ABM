@@ -1,0 +1,9 @@
+{
+  "project": {
+    "verify_cmd": "",
+    "proof_cmd": ""
+  },
+  "policy": {
+    "max_worker_attempts_per_wo": 3
+  }
+}

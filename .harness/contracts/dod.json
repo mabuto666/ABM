@@ -1,0 +1,13 @@
+{
+  "project": {
+    "verify_cmd": "",
+    "proof_cmd": ""
+  },
+  "checks": [
+    "schema",
+    "receipts_for_done",
+    "scope_guard",
+    "project_hook",
+    "no_ready_undone"
+  ]
+}

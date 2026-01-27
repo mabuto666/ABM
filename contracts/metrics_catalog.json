@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "version": "abm.metrics.v1"
+  },
+  "metrics": [
+    {
+      "id": "execution_latency",
+      "category": "execution",
+      "description": "Duration of an execution attempt within an Execution Cycle."
+    },
+    {
+      "id": "execution_attempts",
+      "category": "execution",
+      "description": "Count of execution attempts within an Execution Cycle."
+    },
+    {
+      "id": "execution_success",
+      "category": "execution",
+      "description": "Binary success indicator for an execution attempt."
+    },
+    {
+      "id": "execution_failure_rate",
+      "category": "execution",
+      "description": "Rate of execution failures within a Work Order or Run."
+    },
+    {
+      "id": "idle_time",
+      "category": "execution",
+      "description": "Time spent idle within an Execution Cycle."
+    },
+    {
+      "id": "wip_count",
+      "category": "coordination",
+      "description": "Work-in-progress count at a point in time."
+    },
+    {
+      "id": "blocking_time",
+      "category": "coordination",
+      "description": "Time spent blocked due to dependencies or coordination."
+    },
+    {
+      "id": "serial_dependency_depth",
+      "category": "coordination",
+      "description": "Depth of serial dependencies for a Work Order."
+    },
+    {
+      "id": "parallelism_factor",
+      "category": "coordination",
+      "description": "Degree of parallelism achieved during execution."
+    },
+    {
+      "id": "coordination_overhead",
+      "category": "coordination",
+      "description": "Overhead introduced by orchestration and coordination."
+    },
+    {
+      "id": "verification_pass_fail",
+      "category": "verification",
+      "description": "Binary verification result for an Execution Cycle."
+    },
+    {
+      "id": "verification_latency",
+      "category": "verification",
+      "description": "Duration of verification within an Execution Cycle."
+    },
+    {
+      "id": "verification_retries",
+      "category": "verification",
+      "description": "Count of verification retries for a Work Order."
+    },
+    {
+      "id": "time_to_halt",
+      "category": "verification",
+      "description": "Elapsed time until deterministic halt."
+    },
+    {
+      "id": "false_progress",
+      "category": "verification",
+      "description": "Progress that does not lead to verified completion."
+    },
+    {
+      "id": "llm_call_count",
+      "category": "cost",
+      "description": "Count of LLM calls attributable to a Work Order."
+    },
+    {
+      "id": "tool_call_count",
+      "category": "cost",
+      "description": "Count of tool calls attributable to a Work Order."
+    },
+    {
+      "id": "token_consumption",
+      "category": "cost",
+      "description": "Token usage if available for a Work Order or Run."
+    },
+    {
+      "id": "human_touches",
+      "category": "cost",
+      "description": "Count of human interventions."
+    },
+    {
+      "id": "cost_per_completion",
+      "category": "cost",
+      "description": "Cost per verified completion."
+    }
+  ]
+}

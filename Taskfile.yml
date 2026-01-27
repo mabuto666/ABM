@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  doctor:
+    cmds:
+      - python3 .harness/tools/doctor.py
+  verify:
+    cmds:
+      - python3 .harness/tools/verify.py
+  ralph:
+    cmds:
+      - python3 .harness/tools/ralph.py --loop
