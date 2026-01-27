@@ -1,0 +1,296 @@
+{
+  "meta": {
+    "version": "harness.v1"
+  },
+  "work_orders": [
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/doctor.py",
+          "name": "doctor"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [],
+      "done": false,
+      "id": "WO-0001",
+      "priority": 1,
+      "ready": true,
+      "role": "MAYOR",
+      "scope": {
+        "allow_globs": [
+          ".harness/**",
+          "docs/**",
+          "contracts/**",
+          "README.md",
+          "Taskfile.yml",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create docs/METRICS.md, docs/INVARIANTS.md, docs/LIFECYCLE.md, and docs/VERSIONING.md from the SDD.",
+        "Create contracts/metrics_catalog.json from the SDD.",
+        "Create docs/OPEN_QUESTIONS.md if any gaps exist.",
+        "Replace .harness/contracts/dispatch.json with atomic work orders.",
+        "Mark WO-0001 done only after schema validation passes."
+      ],
+      "title": "Mayor: plan ABM from SDD"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -s docs/METRICS.md",
+          "name": "metrics-doc"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0001"
+      ],
+      "done": false,
+      "id": "WO-0002",
+      "priority": 2,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create docs/METRICS.md with the ABM metrics taxonomy from the SDD."
+      ],
+      "title": "Docs: metrics taxonomy"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -s docs/INVARIANTS.md",
+          "name": "invariants-doc"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0002"
+      ],
+      "done": false,
+      "id": "WO-0003",
+      "priority": 3,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create docs/INVARIANTS.md with ABM invariants from the SDD."
+      ],
+      "title": "Docs: invariants"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -s docs/LIFECYCLE.md",
+          "name": "lifecycle-doc"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0003"
+      ],
+      "done": false,
+      "id": "WO-0004",
+      "priority": 4,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create docs/LIFECYCLE.md with the ABM emission lifecycle from the SDD."
+      ],
+      "title": "Docs: lifecycle"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -s docs/VERSIONING.md",
+          "name": "versioning-doc"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0004"
+      ],
+      "done": false,
+      "id": "WO-0005",
+      "priority": 5,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create docs/VERSIONING.md with ABM extension rules from the SDD."
+      ],
+      "title": "Docs: versioning"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 -c \"import json; json.load(open('contracts/metrics_catalog.json'))\"",
+          "name": "metrics-catalog-json"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0005"
+      ],
+      "done": false,
+      "id": "WO-0006",
+      "priority": 6,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create contracts/metrics_catalog.json from the SDD taxonomy."
+      ],
+      "title": "Contracts: metrics catalog"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -s docs/OPEN_QUESTIONS.md",
+          "name": "open-questions-doc"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0006"
+      ],
+      "done": false,
+      "id": "WO-0007",
+      "priority": 7,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create docs/OPEN_QUESTIONS.md capturing gaps or ambiguities from the SDD."
+      ],
+      "title": "Docs: open questions"
+    }
+  ]
+}
