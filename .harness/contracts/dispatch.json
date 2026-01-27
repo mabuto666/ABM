@@ -606,7 +606,7 @@
       "done": false,
       "id": "WO-0014",
       "priority": 14,
-      "ready": false,
+      "ready": true,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
