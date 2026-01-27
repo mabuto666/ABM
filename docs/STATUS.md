@@ -13,3 +13,12 @@
 2026-01-27T23:21:54+00:00 PROMOTE WO-0007
 2026-01-27T23:21:54+00:00 PASS WO-0007
 2026-01-27T23:21:54+00:00 DONE DoD=PASS
+
+
+## Golden path
+
+```bash
+python3 .harness/tools/verify.py --check dod
+python3 .harness/tools/ralph.py --loop
+```
+
