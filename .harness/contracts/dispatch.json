@@ -18,7 +18,7 @@
         "receipt_required": true
       },
       "depends_on": [],
-      "done": true,
+      "done": false,
       "id": "WO-0001",
       "priority": 1,
       "ready": false,
@@ -68,7 +68,7 @@
       "done": false,
       "id": "WO-0002",
       "priority": 2,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
