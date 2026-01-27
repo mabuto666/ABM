@@ -21,7 +21,7 @@
       "done": false,
       "id": "WO-0001",
       "priority": 1,
-      "ready": false,
+      "ready": true,
       "role": "MAYOR",
       "scope": {
         "allow_globs": [
