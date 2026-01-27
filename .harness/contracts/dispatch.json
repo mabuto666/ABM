@@ -361,7 +361,7 @@
       "done": false,
       "id": "WO-0009",
       "priority": 9,
-      "ready": false,
+      "ready": true,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
