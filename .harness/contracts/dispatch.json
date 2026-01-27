@@ -358,10 +358,10 @@
       "depends_on": [
         "WO-0008"
       ],
-      "done": false,
+      "done": true,
       "id": "WO-0009",
       "priority": 9,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
