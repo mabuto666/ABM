@@ -18,10 +18,10 @@
         "receipt_required": true
       },
       "depends_on": [],
-      "done": false,
+      "done": true,
       "id": "WO-0001",
       "priority": 1,
-      "ready": true,
+      "ready": false,
       "role": "MAYOR",
       "scope": {
         "allow_globs": [
