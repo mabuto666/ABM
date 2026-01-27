@@ -65,10 +65,10 @@
       "depends_on": [
         "WO-0001"
       ],
-      "done": false,
+      "done": true,
       "id": "WO-0002",
       "priority": 2,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
