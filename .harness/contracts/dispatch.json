@@ -291,6 +291,349 @@
         "Create docs/OPEN_QUESTIONS.md capturing gaps or ambiguities from the SDD."
       ],
       "title": "Docs: open questions"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0007"
+      ],
+      "done": true,
+      "id": "WO-0008",
+      "priority": 8,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: Agentic Base Metrics (ABM)",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "Agentic Base Metrics (ABM)"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0008"
+      ],
+      "done": false,
+      "id": "WO-0009",
+      "priority": 9,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: 2.4 Verification",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "2.4 Verification"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0009"
+      ],
+      "done": false,
+      "id": "WO-0010",
+      "priority": 10,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: 4. Metrics Taxonomy",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "4. Metrics Taxonomy"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0010"
+      ],
+      "done": false,
+      "id": "WO-0011",
+      "priority": 11,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: 4.1 Execution Metrics",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "4.1 Execution Metrics"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0011"
+      ],
+      "done": false,
+      "id": "WO-0012",
+      "priority": 12,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: 4.2 Coordination Metrics",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "4.2 Coordination Metrics"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0012"
+      ],
+      "done": false,
+      "id": "WO-0013",
+      "priority": 13,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: 4.3 Verification Metrics",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "4.3 Verification Metrics"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check schema",
+          "name": "verify-schema"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0013"
+      ],
+      "done": false,
+      "id": "WO-0014",
+      "priority": 14,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/contracts/dispatch.json",
+          "receipts/**",
+          "docs/STATUS.md",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement: 4.4 Cost Metrics",
+        "Update docs/99-ops/status.md with what changed and how verified",
+        "Run: python3 .harness/tools/verify.py --check work"
+      ],
+      "title": "4.4 Cost Metrics"
     }
   ]
 }
