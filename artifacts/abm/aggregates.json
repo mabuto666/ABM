@@ -38,13 +38,24 @@
       ]
     },
     "2026-01-28T00:46:56Z-f706f12f": {
+      "attempt_count": 2,
+      "cycle_count": 2,
+      "state_transitions": 2,
+      "verify_fail": 1,
+      "verify_pass": 1,
+      "work_orders": [
+        "WO-0025",
+        "WO-0026"
+      ]
+    },
+    "2026-01-28T00:47:15Z-d93c5d7b": {
       "attempt_count": 1,
       "cycle_count": 1,
       "state_transitions": 1,
       "verify_fail": 0,
       "verify_pass": 1,
       "work_orders": [
-        "WO-0025"
+        "WO-0026"
       ]
     }
   },
@@ -120,16 +131,24 @@
       "state_transitions": 2,
       "verify_fail": 1,
       "verify_pass": 1
+    },
+    "WO-0026": {
+      "attempt_count": 2,
+      "cycle_count": 2,
+      "max_cycle_id": 2,
+      "state_transitions": 2,
+      "verify_fail": 1,
+      "verify_pass": 1
     }
   },
   "event_counts": {
-    "attempt_end": 11,
-    "attempt_start": 11,
-    "cycle_end": 10,
-    "cycle_start": 11,
-    "state_transition": 16,
-    "verify_result": 11,
-    "verify_start": 11
+    "attempt_end": 13,
+    "attempt_start": 13,
+    "cycle_end": 12,
+    "cycle_start": 13,
+    "state_transition": 18,
+    "verify_result": 13,
+    "verify_start": 13
   },
   "meta": {
     "version": "abm.aggregates.v1"

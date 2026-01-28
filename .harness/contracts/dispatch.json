@@ -1169,8 +1169,8 @@
     {
       "acceptance": [
         {
-          "cmd": "python3 .harness/tools/verify.py --check dod",
-          "name": "check-1"
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
         }
       ],
       "artifacts": {
@@ -1179,10 +1179,10 @@
       "depends_on": [
         "WO-0025"
       ],
-      "done": false,
+      "done": true,
       "id": "WO-0026",
       "priority": 26,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
