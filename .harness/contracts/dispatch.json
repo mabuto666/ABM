@@ -1182,7 +1182,7 @@
       "done": false,
       "id": "WO-0026",
       "priority": 26,
-      "ready": false,
+      "ready": true,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
