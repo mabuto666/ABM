@@ -16,9 +16,9 @@
     "2026-01-28T00:32:30Z-123e098c": {
       "attempt_count": 1,
       "cycle_count": 1,
-      "state_transitions": 0,
+      "state_transitions": 1,
       "verify_fail": 0,
-      "verify_pass": 0,
+      "verify_pass": 1,
       "work_orders": [
         "WO-0020"
       ]
@@ -53,18 +53,18 @@
       "attempt_count": 2,
       "cycle_count": 2,
       "max_cycle_id": 4,
-      "state_transitions": 1,
+      "state_transitions": 2,
       "verify_fail": 1,
-      "verify_pass": 0
+      "verify_pass": 1
     }
   },
   "event_counts": {
-    "attempt_end": 4,
+    "attempt_end": 5,
     "attempt_start": 5,
-    "cycle_end": 4,
+    "cycle_end": 5,
     "cycle_start": 5,
-    "state_transition": 6,
-    "verify_result": 4,
+    "state_transition": 7,
+    "verify_result": 5,
     "verify_start": 5
   },
   "meta": {

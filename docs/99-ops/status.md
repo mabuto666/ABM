@@ -8,3 +8,7 @@
 - RUN_DONE proof: receipts/RUN/2026-01-27T23:21:54Z-1c9d3c9e.json
 - Receipts policy: append-only; PROMOTE then COMPLETE expected; one RUN_DONE per run_id; receipts/_dispatch append-only
 - Notable artifacts: receipts/, logs (if any)
+- Phase 3 run_id: 2026-01-28T00:33:19Z-5c5189eb
+- Phase 3 RUN_DONE proof: receipts/RUN/2026-01-28T00:33:19Z-f341ec55.json
+- Phase 3 ABM events: artifacts/abm/events.jsonl (append-only)
+- Phase 3 ABM aggregates: artifacts/abm/aggregates.json (deterministic)

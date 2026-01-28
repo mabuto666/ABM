@@ -312,6 +312,7 @@ def one_cycle(run_id):
                 detail={"to_state": "done"},
             )
         )
+        abm_mod.write_aggregates()
         commit_work(wo["id"])
         write_receipt(
             "COMPLETE",
