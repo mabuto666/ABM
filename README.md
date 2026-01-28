@@ -26,3 +26,6 @@ python3 .harness/tools/doctor.py
 python3 .harness/tools/verify.py
 python3 .harness/tools/promptgen.py
 ```
+
+## Documentation
+- **Architecture:** [ARCHITECTURE.md](ARCHITECTURE.md)
