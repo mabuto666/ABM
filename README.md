@@ -28,4 +28,5 @@ python3 .harness/tools/promptgen.py
 ```
 
 ## Documentation
+- **Code audit:** [CODE_AUDIT.MD](CODE_AUDIT.MD)
 - **Architecture:** [ARCHITECTURE.md](ARCHITECTURE.md)
