@@ -841,10 +841,10 @@
       "depends_on": [
         "WO-0018"
       ],
-      "done": false,
+      "done": true,
       "id": "WO-0019",
       "priority": 19,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
