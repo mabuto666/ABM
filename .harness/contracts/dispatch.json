@@ -753,7 +753,7 @@
       "done": false,
       "id": "WO-0017",
       "priority": 17,
-      "ready": false,
+      "ready": true,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
