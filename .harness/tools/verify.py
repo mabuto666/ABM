@@ -279,9 +279,7 @@ def check_receipts():
                 errors.append(f"{rel_path} unknown work_order_id {wo_id}")
             else:
                 wo = work_orders[wo_id]
-                if kind == "PROMOTE":
-                    if not wo.get("ready") or wo.get("done"):
-                        errors.append(f"{rel_path} promote requires ready=true done=false")
+                # PROMOTE receipts are append-only and do not need to match current ready/done state.
                 if kind == "COMPLETE":
                     if not wo.get("done") or wo.get("ready"):
                         errors.append(f"{rel_path} complete requires done=true ready=false")
@@ -301,6 +299,10 @@ def check_receipts():
             terminal_counts[run_id] = count
             if count > 1:
                 errors.append(f"{rel_path} multiple terminal receipts for run_id {run_id}")
+
+    for wo_id, wo in work_orders.items():
+        if wo.get("done") and complete_counts.get(wo_id, 0) < 1:
+            errors.append(f"receipts missing COMPLETE for done work order {wo_id}")
 
     return not errors, errors
 
