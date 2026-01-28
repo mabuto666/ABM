@@ -343,11 +343,93 @@ def _canonical_json(payload):
     return json.dumps(payload, sort_keys=True, separators=(",", ":"))
 
 
+def _load_abm_schema(schema_path):
+    try:
+        return json_read(schema_path), None
+    except Exception as exc:
+        return None, f"abm schema unreadable: {exc}"
+
+
+def _validate_abm_event_minimal(event, schema):
+    if not isinstance(event, dict):
+        return "event must be object"
+    properties = schema.get("properties", {})
+    required = schema.get("required", [])
+    for key in required:
+        if key not in event:
+            return f"missing required field {key}"
+    if schema.get("additionalProperties") is False:
+        extra = set(event.keys()) - set(properties.keys())
+        if extra:
+            return f"unexpected fields: {', '.join(sorted(extra))}"
+    for key, spec in properties.items():
+        if key not in event:
+            continue
+        value = event[key]
+        types = spec.get("type")
+        if types:
+            type_list = types if isinstance(types, list) else [types]
+            type_ok = False
+            for t in type_list:
+                if t == "string" and isinstance(value, str):
+                    type_ok = True
+                elif t == "object" and isinstance(value, dict):
+                    type_ok = True
+                elif t == "null" and value is None:
+                    type_ok = True
+            if not type_ok:
+                return f"{key} type mismatch"
+        if "const" in spec and value != spec["const"]:
+            return f"{key} must equal {spec['const']}"
+        if "enum" in spec and value not in spec["enum"]:
+            return f"{key} must be one of {', '.join(spec['enum'])}"
+        if "pattern" in spec and isinstance(value, str):
+            if not re.match(spec["pattern"], value):
+                return f"{key} pattern mismatch"
+    return None
+
+
+def _validate_abm_events_schema(events_path, schema_path):
+    schema, error = _load_abm_schema(schema_path)
+    if error:
+        return False, [error]
+    if schema is None:
+        return False, ["abm schema missing"]
+    try:
+        import jsonschema  # type: ignore
+    except Exception:
+        jsonschema = None
+    for line_no, line in enumerate(events_path.read_text(encoding="utf-8").splitlines(), start=1):
+        if not line.strip():
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError as exc:
+            return False, [f"abm events schema fail line {line_no}: {exc.msg}"]
+        if jsonschema:
+            try:
+                jsonschema.validate(instance=event, schema=schema)
+            except Exception as exc:
+                return False, [f"abm events schema fail line {line_no}: {exc}"]
+        else:
+            reason = _validate_abm_event_minimal(event, schema)
+            if reason:
+                return False, [f"abm events schema fail line {line_no}: {reason}"]
+    return True, []
+
+
 def check_abm():
     errors = []
     dispatch = load_dispatch()
     work_orders = dispatch.get("work_orders", [])
     done_ids = [wo.get("id") for wo in work_orders if wo.get("done")]
+
+    events_path = abm_mod.EVENTS_PATH
+    if events_path.exists():
+        schema_path = Path("contracts/abm_event.schema.json")
+        ok, schema_errors = _validate_abm_events_schema(events_path, schema_path)
+        if not ok:
+            return False, schema_errors
 
     events = abm_mod.load_events()
     if not events:

@@ -39,6 +39,17 @@ def load_events():
     return events
 
 
+def load_events_from_path(path):
+    path = Path(path)
+    if not path.exists():
+        return []
+    events = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            events.append(json.loads(line))
+    return events
+
+
 def _parse_cycle_id(cycle_id):
     if not isinstance(cycle_id, str):
         return 0
@@ -167,4 +178,14 @@ def write_aggregates():
     aggregates = compute_aggregates(events)
     _ensure_parent(AGGREGATES_PATH)
     json_write(AGGREGATES_PATH, aggregates)
+    return aggregates
+
+
+def write_aggregates_for(events_path=None, aggregates_path=None):
+    events_path = Path(events_path) if events_path else EVENTS_PATH
+    aggregates_path = Path(aggregates_path) if aggregates_path else AGGREGATES_PATH
+    events = load_events_from_path(events_path)
+    aggregates = compute_aggregates(events)
+    _ensure_parent(aggregates_path)
+    json_write(aggregates_path, aggregates)
     return aggregates
