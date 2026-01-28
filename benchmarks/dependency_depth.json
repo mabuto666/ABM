@@ -1,0 +1,8 @@
+{
+  "benchmark_id": "dependency_depth",
+  "stress_axis": "dependency_graph_depth",
+  "parameters": {
+    "depth": [1, 2, 4, 6],
+    "fanout": [1, 2]
+  }
+}

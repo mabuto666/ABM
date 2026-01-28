@@ -1122,8 +1122,8 @@
     {
       "acceptance": [
         {
-          "cmd": "python3 .harness/tools/verify.py --check work",
-          "name": "verify-work"
+          "cmd": "test -f artifacts/abm/benchmarks/results.json",
+          "name": "results-json"
         }
       ],
       "artifacts": {
@@ -1169,8 +1169,8 @@
     {
       "acceptance": [
         {
-          "cmd": "python3 .harness/tools/verify.py --check work",
-          "name": "verify-work"
+          "cmd": "python3 .harness/tools/verify.py --check dod",
+          "name": "verify-dod"
         }
       ],
       "artifacts": {

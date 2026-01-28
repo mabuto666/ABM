@@ -3,6 +3,7 @@
     "2026-01-28T00:31:19Z-40d4e9ad": {
       "attempt_count": 4,
       "cycle_count": 4,
+      "done_transitions": 3,
       "state_transitions": 6,
       "verify_fail": 1,
       "verify_pass": 3,
@@ -16,6 +17,7 @@
     "2026-01-28T00:32:30Z-123e098c": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "state_transitions": 1,
       "verify_fail": 0,
       "verify_pass": 1,
@@ -26,6 +28,7 @@
     "2026-01-28T00:46:23Z-a02e8575": {
       "attempt_count": 5,
       "cycle_count": 5,
+      "done_transitions": 4,
       "state_transitions": 8,
       "verify_fail": 1,
       "verify_pass": 4,
@@ -40,6 +43,7 @@
     "2026-01-28T00:46:56Z-f706f12f": {
       "attempt_count": 2,
       "cycle_count": 2,
+      "done_transitions": 1,
       "state_transitions": 2,
       "verify_fail": 1,
       "verify_pass": 1,
@@ -51,6 +55,7 @@
     "2026-01-28T00:47:15Z-d93c5d7b": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "state_transitions": 1,
       "verify_fail": 0,
       "verify_pass": 1,
@@ -63,6 +68,7 @@
     "WO-0017": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 1,
       "state_transitions": 1,
       "verify_fail": 0,
@@ -71,6 +77,7 @@
     "WO-0018": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 2,
       "state_transitions": 2,
       "verify_fail": 0,
@@ -79,6 +86,7 @@
     "WO-0019": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 3,
       "state_transitions": 2,
       "verify_fail": 0,
@@ -87,6 +95,7 @@
     "WO-0020": {
       "attempt_count": 2,
       "cycle_count": 2,
+      "done_transitions": 1,
       "max_cycle_id": 4,
       "state_transitions": 2,
       "verify_fail": 1,
@@ -95,6 +104,7 @@
     "WO-0021": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 1,
       "state_transitions": 1,
       "verify_fail": 0,
@@ -103,6 +113,7 @@
     "WO-0022": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 2,
       "state_transitions": 2,
       "verify_fail": 0,
@@ -111,6 +122,7 @@
     "WO-0023": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 3,
       "state_transitions": 2,
       "verify_fail": 0,
@@ -119,6 +131,7 @@
     "WO-0024": {
       "attempt_count": 1,
       "cycle_count": 1,
+      "done_transitions": 1,
       "max_cycle_id": 4,
       "state_transitions": 2,
       "verify_fail": 0,
@@ -127,6 +140,7 @@
     "WO-0025": {
       "attempt_count": 2,
       "cycle_count": 2,
+      "done_transitions": 1,
       "max_cycle_id": 5,
       "state_transitions": 2,
       "verify_fail": 1,
@@ -135,6 +149,7 @@
     "WO-0026": {
       "attempt_count": 2,
       "cycle_count": 2,
+      "done_transitions": 1,
       "max_cycle_id": 2,
       "state_transitions": 2,
       "verify_fail": 1,
@@ -144,7 +159,7 @@
   "event_counts": {
     "attempt_end": 13,
     "attempt_start": 13,
-    "cycle_end": 12,
+    "cycle_end": 13,
     "cycle_start": 13,
     "state_transition": 18,
     "verify_result": 13,
@@ -152,5 +167,42 @@
   },
   "meta": {
     "version": "abm.aggregates.v1"
+  },
+  "scaling_indicators": {
+    "2026-01-28T00:31:19Z-40d4e9ad": {
+      "cycle_count": 4,
+      "done_transitions": 3,
+      "retry_amplification": 1.0,
+      "throughput_to_coordination": 0.5,
+      "verification_drag": 0.25
+    },
+    "2026-01-28T00:32:30Z-123e098c": {
+      "cycle_count": 1,
+      "done_transitions": 1,
+      "retry_amplification": 1.0,
+      "throughput_to_coordination": 1.0,
+      "verification_drag": 0.0
+    },
+    "2026-01-28T00:46:23Z-a02e8575": {
+      "cycle_count": 5,
+      "done_transitions": 4,
+      "retry_amplification": 1.0,
+      "throughput_to_coordination": 0.5,
+      "verification_drag": 0.2
+    },
+    "2026-01-28T00:46:56Z-f706f12f": {
+      "cycle_count": 2,
+      "done_transitions": 1,
+      "retry_amplification": 1.0,
+      "throughput_to_coordination": 0.5,
+      "verification_drag": 0.5
+    },
+    "2026-01-28T00:47:15Z-d93c5d7b": {
+      "cycle_count": 1,
+      "done_transitions": 1,
+      "retry_amplification": 1.0,
+      "throughput_to_coordination": 1.0,
+      "verification_drag": 0.0
+    }
   }
 }

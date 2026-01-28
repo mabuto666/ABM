@@ -17,6 +17,10 @@ AGGREGATES_VERSION = "abm.aggregates.v1"
 MAX_CYCLES_WITHOUT_COMPLETE = 3
 MAX_VERIFY_FAIL_STREAK = 3
 MAX_CYCLES_PER_WORK_ORDER = 10
+THROUGHPUT_COLLAPSE_THRESHOLD = 0
+COORDINATION_DOMINANCE_THRESHOLD = 0.25
+VERIFICATION_DRAG_THRESHOLD = 0.5
+RETRY_AMPLIFICATION_THRESHOLD = 2.0
 
 
 def _ensure_parent(path):
@@ -114,6 +118,7 @@ def compute_aggregates(events):
                     "verify_pass": 0,
                     "verify_fail": 0,
                     "state_transitions": 0,
+                    "done_transitions": 0,
                     "max_cycle_id": 0,
                 },
             )
@@ -129,6 +134,8 @@ def compute_aggregates(events):
                     wo["verify_fail"] += 1
             if event_type == "state_transition":
                 wo["state_transitions"] += 1
+                if detail.get("to_state") == "done":
+                    wo["done_transitions"] += 1
             wo["max_cycle_id"] = max(wo["max_cycle_id"], _parse_cycle_id(cycle_id))
 
         if isinstance(run_id, str):
@@ -140,6 +147,7 @@ def compute_aggregates(events):
                     "verify_pass": 0,
                     "verify_fail": 0,
                     "state_transitions": 0,
+                    "done_transitions": 0,
                     "work_orders": set(),
                 },
             )
@@ -155,6 +163,8 @@ def compute_aggregates(events):
                     run["verify_fail"] += 1
             if event_type == "state_transition":
                 run["state_transitions"] += 1
+                if detail.get("to_state") == "done":
+                    run["done_transitions"] += 1
             if isinstance(wo_id, str):
                 run["work_orders"].add(wo_id)
 
@@ -170,6 +180,7 @@ def compute_aggregates(events):
         "by_work_order": by_work_order,
         "by_run": by_run_out,
     }
+    aggregates["scaling_indicators"] = compute_scaling_indicators(aggregates)
     return aggregates
 
 
@@ -189,3 +200,57 @@ def write_aggregates_for(events_path=None, aggregates_path=None):
     _ensure_parent(aggregates_path)
     json_write(aggregates_path, aggregates)
     return aggregates
+
+
+def _safe_ratio(numerator, denominator):
+    return numerator / denominator if denominator else 0.0
+
+
+def compute_scaling_indicators(aggregates):
+    by_run = aggregates.get("by_run", {})
+    indicators = {}
+    for run_id, data in by_run.items():
+        cycle_count = int(data.get("cycle_count", 0))
+        attempt_count = int(data.get("attempt_count", 0))
+        verify_pass = int(data.get("verify_pass", 0))
+        verify_fail = int(data.get("verify_fail", 0))
+        state_transitions = int(data.get("state_transitions", 0))
+        done_transitions = int(data.get("done_transitions", 0))
+        throughput_to_coordination = _safe_ratio(done_transitions, state_transitions)
+        verification_drag = _safe_ratio(verify_fail, verify_pass + verify_fail)
+        retry_amplification = _safe_ratio(attempt_count, cycle_count)
+        indicators[run_id] = {
+            "throughput_to_coordination": throughput_to_coordination,
+            "verification_drag": verification_drag,
+            "retry_amplification": retry_amplification,
+            "cycle_count": cycle_count,
+            "done_transitions": done_transitions,
+        }
+    return indicators
+
+
+def classify_limits(indicators):
+    classification = {}
+    for run_id, data in indicators.items():
+        cycle_count = data.get("cycle_count", 0)
+        done_transitions = data.get("done_transitions", 0)
+        throughput_to_coordination = data.get("throughput_to_coordination", 0.0)
+        verification_drag = data.get("verification_drag", 0.0)
+        retry_amplification = data.get("retry_amplification", 0.0)
+        if cycle_count and done_transitions <= THROUGHPUT_COLLAPSE_THRESHOLD:
+            limit = "throughput_collapse"
+        elif throughput_to_coordination <= COORDINATION_DOMINANCE_THRESHOLD:
+            limit = "coordination_dominated"
+        elif verification_drag >= VERIFICATION_DRAG_THRESHOLD:
+            limit = "verification_deadlock"
+        elif retry_amplification >= RETRY_AMPLIFICATION_THRESHOLD:
+            limit = "retry_amplification"
+        else:
+            limit = "nominal"
+        classification[run_id] = {
+            "limit": limit,
+            "throughput_to_coordination": throughput_to_coordination,
+            "verification_drag": verification_drag,
+            "retry_amplification": retry_amplification,
+        }
+    return classification

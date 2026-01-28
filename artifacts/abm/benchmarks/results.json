@@ -1,0 +1,472 @@
+{
+  "results": [
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 1,
+        "fanout": 1
+      },
+      "run_id": "2026-01-28T00:50:09Z-ed128c0c",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 1,
+        "fanout": 2
+      },
+      "run_id": "2026-01-28T00:50:09Z-1cbe517e",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 2,
+        "fanout": 1
+      },
+      "run_id": "2026-01-28T00:50:09Z-1cbe517e",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 2,
+        "fanout": 2
+      },
+      "run_id": "2026-01-28T00:50:09Z-1cbe517e",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 4,
+        "fanout": 1
+      },
+      "run_id": "2026-01-28T00:50:09Z-1cbe517e",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 4,
+        "fanout": 2
+      },
+      "run_id": "2026-01-28T00:50:09Z-1cbe517e",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 6,
+        "fanout": 1
+      },
+      "run_id": "2026-01-28T00:50:09Z-0a7f6489",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "dependency_depth",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "depth": 6,
+        "fanout": 2
+      },
+      "run_id": "2026-01-28T00:50:09Z-0a7f6489",
+      "stress_axis": "dependency_graph_depth"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "retry_rate": 0.0
+      },
+      "run_id": "2026-01-28T00:50:09Z-0a7f6489",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "retry_rate": 0.2
+      },
+      "run_id": "2026-01-28T00:50:09Z-0a7f6489",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "retry_rate": 0.5
+      },
+      "run_id": "2026-01-28T00:50:10Z-89def667",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "retry_rate": 0.8
+      },
+      "run_id": "2026-01-28T00:50:10Z-89def667",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "retry_rate": 0.0
+      },
+      "run_id": "2026-01-28T00:50:10Z-89def667",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "retry_rate": 0.2
+      },
+      "run_id": "2026-01-28T00:50:10Z-af343591",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "retry_rate": 0.5
+      },
+      "run_id": "2026-01-28T00:50:11Z-05769f86",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "retry_rate": 0.8
+      },
+      "run_id": "2026-01-28T00:50:11Z-05769f86",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 4,
+        "retry_rate": 0.0
+      },
+      "run_id": "2026-01-28T00:50:11Z-05769f86",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 4,
+        "retry_rate": 0.2
+      },
+      "run_id": "2026-01-28T00:50:11Z-05769f86",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 4,
+        "retry_rate": 0.5
+      },
+      "run_id": "2026-01-28T00:50:11Z-05769f86",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "retry_amplification",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 4,
+        "retry_rate": 0.8
+      },
+      "run_id": "2026-01-28T00:50:11Z-05769f86",
+      "stress_axis": "retry_amplification"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "verification_fail_rate": 0.0
+      },
+      "run_id": "2026-01-28T00:50:12Z-24e12a5a",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "verification_fail_rate": 0.25
+      },
+      "run_id": "2026-01-28T00:50:12Z-24e12a5a",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "verification_fail_rate": 0.5
+      },
+      "run_id": "2026-01-28T00:50:12Z-23fbdc28",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 1,
+        "verification_fail_rate": 0.75
+      },
+      "run_id": "2026-01-28T00:50:12Z-23fbdc28",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "verification_fail_rate": 0.0
+      },
+      "run_id": "2026-01-28T00:50:12Z-23fbdc28",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "verification_fail_rate": 0.25
+      },
+      "run_id": "2026-01-28T00:50:12Z-ac8d5dd2",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "verification_fail_rate": 0.5
+      },
+      "run_id": "2026-01-28T00:50:12Z-ac8d5dd2",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 2,
+        "verification_fail_rate": 0.75
+      },
+      "run_id": "2026-01-28T00:50:13Z-ff16704c",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 3,
+        "verification_fail_rate": 0.0
+      },
+      "run_id": "2026-01-28T00:50:13Z-7aaf83f5",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 3,
+        "verification_fail_rate": 0.25
+      },
+      "run_id": "2026-01-28T00:50:13Z-7aaf83f5",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 3,
+        "verification_fail_rate": 0.5
+      },
+      "run_id": "2026-01-28T00:50:13Z-7aaf83f5",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "verification_drag",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "max_attempts": 3,
+        "verification_fail_rate": 0.75
+      },
+      "run_id": "2026-01-28T00:50:13Z-7aaf83f5",
+      "stress_axis": "verification_drag"
+    },
+    {
+      "benchmark_id": "wip_sweep",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "wip_limit": 1,
+        "work_order_count": 5
+      },
+      "run_id": "2026-01-28T00:50:13Z-7aaf83f5",
+      "stress_axis": "work_in_progress"
+    },
+    {
+      "benchmark_id": "wip_sweep",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "wip_limit": 2,
+        "work_order_count": 5
+      },
+      "run_id": "2026-01-28T00:50:13Z-e07472c2",
+      "stress_axis": "work_in_progress"
+    },
+    {
+      "benchmark_id": "wip_sweep",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "wip_limit": 4,
+        "work_order_count": 5
+      },
+      "run_id": "2026-01-28T00:50:13Z-e07472c2",
+      "stress_axis": "work_in_progress"
+    },
+    {
+      "benchmark_id": "wip_sweep",
+      "dispatch_hash": "e9e5bf854959d7f0ed789d4c231172907fcddcb4c166d693392c6a10dae80793",
+      "head": "9fd44cf295dfd071a2a773ad437285045381c68b",
+      "indicators": {},
+      "limit": "coordination_dominated",
+      "parameters": {
+        "wip_limit": 8,
+        "work_order_count": 5
+      },
+      "run_id": "2026-01-28T00:50:13Z-e07472c2",
+      "stress_axis": "work_in_progress"
+    }
+  ]
+}

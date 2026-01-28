@@ -1,0 +1,8 @@
+{
+  "benchmark_id": "retry_amplification",
+  "stress_axis": "retry_amplification",
+  "parameters": {
+    "retry_rate": [0.0, 0.2, 0.5, 0.8],
+    "max_attempts": [1, 2, 4]
+  }
+}

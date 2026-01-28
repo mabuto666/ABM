@@ -1,0 +1,8 @@
+{
+  "benchmark_id": "wip_sweep",
+  "stress_axis": "work_in_progress",
+  "parameters": {
+    "wip_limit": [1, 2, 4, 8],
+    "work_order_count": [5]
+  }
+}

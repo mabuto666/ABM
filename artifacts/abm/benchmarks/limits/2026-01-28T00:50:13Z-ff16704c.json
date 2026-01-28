@@ -1,0 +1,6 @@
+{
+  "limit": "coordination_dominated",
+  "retry_amplification": 0.0,
+  "throughput_to_coordination": 0.0,
+  "verification_drag": 0.0
+}

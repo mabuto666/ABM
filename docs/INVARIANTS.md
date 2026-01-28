@@ -21,5 +21,11 @@
 - Max verification fail streak without state change: 3.
 - Max cycles per Work Order: 10.
 
+## Scaling Limit Thresholds
+- Throughput collapse: zero done transitions after at least one cycle.
+- Coordination dominance threshold: throughput_to_coordination <= 0.25.
+- Verification drag threshold: verify_fail / (verify_pass + verify_fail) >= 0.5.
+- Retry amplification threshold: attempt_count / cycle_count >= 2.0.
+
 ## System Boundaries
 - ABM surfaces facts; it does not optimize, schedule, resolve failures, or decide correctness beyond declared verification.
