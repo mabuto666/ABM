@@ -1,0 +1,43 @@
+name: ABM → ABM_UI smoke
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - "abm-*"
+
+jobs:
+  ui-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ABM
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify DoD
+        run: python3 .harness/tools/verify.py --check dod
+
+      - name: Checkout ABM_UI
+        uses: actions/checkout@v4
+        with:
+          repository: mabuto666/ABM_UI
+          path: ABM_UI
+
+      - name: Export UI bundle
+        run: |
+          python3 tools/export_ui_bundle.py --out ABM_UI/web/data
+          ls -la ABM_UI/web/data
+
+      - name: Start ABM_UI server
+        run: |
+          cd ABM_UI/web
+          python3 -m http.server 8000 &
+          sleep 2
+
+      - name: Smoke fetch results.json
+        run: |
+          curl -sf http://localhost:8000/data/results.json | head -c 200
