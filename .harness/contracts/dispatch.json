@@ -923,6 +923,295 @@
         "Update docs/STATUS.md with Phase 3 completion and artifact locations."
       ],
       "title": "ABM Phase 3 proof: run to RUN_DONE and enforce ABM DoD additions"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0020"
+      ],
+      "done": true,
+      "id": "WO-0021",
+      "priority": 21,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "benchmarks/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Define benchmark workloads as declarative specs (e.g., benchmarks/*.json):",
+        "- wip_sweep",
+        "- dependency_depth",
+        "- verification_drag",
+        "- retry_amplification",
+        "Each spec must define parameters, bounds, and expected stress axis.",
+        "Benchmarks must not embed logic; execution remains in Ralph."
+      ],
+      "title": "Benchmark definitions: deterministic workload catalog"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0021"
+      ],
+      "done": false,
+      "id": "WO-0022",
+      "priority": 22,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "benchmarks/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement a deterministic experiment runner that:",
+        "- iterates benchmark specs",
+        "- executes runs for each parameter set",
+        "- records run_id and benchmark metadata",
+        "Runner must not adapt behavior based on results."
+      ],
+      "title": "Experiment runner: systematic parameter sweep"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0022"
+      ],
+      "done": false,
+      "id": "WO-0023",
+      "priority": 23,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "benchmarks/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Extend ABM aggregation to compute scaling indicators:",
+        "- throughput vs coordination cost ratio",
+        "- verification drag dominance",
+        "- retry amplification factor",
+        "Indicators must be derived only from ABM events."
+      ],
+      "title": "Scaling aggregates: derive limit indicators"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0023"
+      ],
+      "done": false,
+      "id": "WO-0024",
+      "priority": 24,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "benchmarks/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement deterministic limit detection rules:",
+        "- throughput collapse",
+        "- coordination-dominated regime",
+        "- verification deadlock",
+        "- infinite loop risk",
+        "Emit a limit classification artifact per experiment run."
+      ],
+      "title": "Limit detection: classify halt or degradation"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -f artifacts/abm/benchmarks/results.json",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0024"
+      ],
+      "done": false,
+      "id": "WO-0025",
+      "priority": 25,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "benchmarks/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Produce artifacts/abm/benchmarks/results.json:",
+        "- one entry per (benchmark, parameter set)",
+        "- include metrics snapshot and halt classification",
+        "Artifact must be deterministic and replayable."
+      ],
+      "title": "Benchmark results artifact"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check dod",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0025"
+      ],
+      "done": false,
+      "id": "WO-0026",
+      "priority": 26,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "benchmarks/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Run all benchmark experiments to completion.",
+        "Ensure results.json is populated.",
+        "Verify ABM DoD still passes.",
+        "Document scaling limits observed in docs/STATUS.md (facts only)."
+      ],
+      "title": "Phase 4 proof: execute benchmarks and verify limits"
     }
   ]
 }
