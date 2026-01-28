@@ -990,7 +990,7 @@
       "done": false,
       "id": "WO-0022",
       "priority": 22,
-      "ready": false,
+      "ready": true,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
