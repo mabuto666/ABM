@@ -634,6 +634,295 @@
         "Run: python3 .harness/tools/verify.py --check work"
       ],
       "title": "4.4 Cost Metrics"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0014"
+      ],
+      "done": true,
+      "id": "WO-0015",
+      "priority": 15,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Create an ABM metric-event contract (strict JSON schema) reflecting SDD entities: Run, WorkOrder, ExecutionCycle, Agent, VerificationResult, MetricEvent.",
+        "Define required linkage keys: run_id, dispatch_hash, head, work_order_id, cycle_id, agent_id; timestamps UTC.",
+        "Define taxonomy enums per SDD section 4: execution/coordination/verification/cost; and lifecycle events per SDD section 6.",
+        "Document contract + mutability rules (append-only) consistent with SDD section 5.3.",
+        "Update docs/99-ops/status.md with verification notes."
+      ],
+      "title": "ABM substrate: define metric event contract + emission lifecycle (SDD 4-6)"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0015"
+      ],
+      "done": false,
+      "id": "WO-0016",
+      "priority": 16,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement append-only ABM event emission during Ralph execution cycles:",
+        "- cycle_start / cycle_end",
+        "- attempt_start / attempt_end",
+        "- verify_start / verify_result",
+        "- state_transition (ready/promoted/done)",
+        "Events must be attributable to (work_order_id, cycle_id) and written deterministically.",
+        "Do NOT change scheduling/orchestration behavior; only emit facts.",
+        "Store events under artifacts/abm/events.jsonl (append-only) or equivalent ABM artifact path.",
+        "Update docs/99-ops/status.md with what changed and how verified."
+      ],
+      "title": "ABM emission: instrument Ralph loop to emit cycle/attempt/verification events (SDD 6.1)"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "test -f artifacts/abm/aggregates.json",
+          "name": "check-1"
+        },
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-2"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0016"
+      ],
+      "done": false,
+      "id": "WO-0017",
+      "priority": 17,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement post-hoc aggregation that reads ABM event log and produces deterministic aggregates.",
+        "Aggregates must be derived-only; must not influence execution.",
+        "Write aggregates to artifacts/abm/aggregates.json (deterministic ordering).",
+        "Update docs/99-ops/status.md with verification notes."
+      ],
+      "title": "ABM aggregation: derive replayable aggregates post-run only (SDD 6.2)"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0017"
+      ],
+      "done": false,
+      "id": "WO-0018",
+      "priority": 18,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Add a deterministic check: rerun aggregator over the same event log and assert identical aggregates (byte-for-byte or canonical-json stable).",
+        "Add or extend a verifier check ensuring replay determinism holds.",
+        "Update docs/99-ops/status.md with verification notes."
+      ],
+      "title": "ABM replay determinism: re-run aggregation and assert identical output (SDD 7)"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0018"
+      ],
+      "done": false,
+      "id": "WO-0019",
+      "priority": 19,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Implement detection (emit metric events and fail verification where appropriate) for:",
+        "- silent execution (WO done without required events)",
+        "- zero progress (cycles without completes beyond threshold)",
+        "- verification deadlock (repeated verify fails without state change)",
+        "- infinite loop risk (cycle count exceeds bound)",
+        "ABM must detect, not fix. Use deterministic thresholds documented in docs/INVARIANTS.md.",
+        "Update docs/99-ops/status.md with what changed and how verified."
+      ],
+      "title": "ABM guardrails: detect silent execution + zero progress + deadlock signals (SDD 9)"
+    },
+    {
+      "acceptance": [
+        {
+          "cmd": "python3 .harness/tools/verify.py --check dod",
+          "name": "check-1"
+        }
+      ],
+      "artifacts": {
+        "receipt_required": true
+      },
+      "depends_on": [
+        "WO-0019"
+      ],
+      "done": false,
+      "id": "WO-0020",
+      "priority": 20,
+      "ready": false,
+      "role": "WORKER",
+      "scope": {
+        "allow_globs": [
+          "docs/**",
+          "contracts/**",
+          ".harness/**",
+          "receipts/**",
+          "artifacts/**",
+          "README.md",
+          "Taskfile.yml"
+        ],
+        "deny_globs": [
+          "**/.env",
+          "**/*.pem",
+          "**/*token*",
+          "**/package-lock.json",
+          "**/yarn.lock",
+          "**/__pycache__/**",
+          "**/*.pyc"
+        ]
+      },
+      "steps": [
+        "Run Ralph loop to terminal RUN_DONE.",
+        "Ensure ABM event log exists and contains per-cycle and verification events for each work order execution cycle.",
+        "Ensure aggregates exist and replay determinism check passes.",
+        "Ensure no silent execution exists (new ABM checks).",
+        "Update docs/STATUS.md with Phase 3 completion and artifact locations."
+      ],
+      "title": "ABM Phase 3 proof: run to RUN_DONE and enforce ABM DoD additions"
     }
   ]
 }
