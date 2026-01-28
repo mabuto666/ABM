@@ -4,10 +4,12 @@ from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import abm as abm_mod
     import verify as verify_mod
     from receipt import dispatch_hash, make_run_id, write_receipt
     from util import git_changed_files, git_head, json_read, json_write, now_iso, run_cmd
 else:
+    from . import abm as abm_mod
     from . import verify as verify_mod
     from .receipt import dispatch_hash, make_run_id, write_receipt
     from .util import git_changed_files, git_head, json_read, json_write, now_iso, run_cmd
@@ -75,6 +77,7 @@ def run_verify_work():
         ("schema", verify_mod.check_schema),
         ("receipts", verify_mod.check_receipts),
         ("scope", verify_mod.check_scope),
+        ("abm", verify_mod.check_abm),
         ("project", verify_mod.check_project),
     ]
     ok = True
@@ -91,6 +94,7 @@ def run_verify_dod():
         ("schema", verify_mod.check_schema),
         ("receipts", verify_mod.check_receipts),
         ("scope", verify_mod.check_scope),
+        ("abm", verify_mod.check_abm),
         ("project", verify_mod.check_project),
         ("no_ready_undone", verify_mod.check_no_ready_undone),
     ]
@@ -121,7 +125,7 @@ def commit_promotion(wo_id):
     run_cmd(["git", "commit", "-m", f"ralph: promote {wo_id}"], check=True)
 
 
-def promote_next(dispatch, run_id):
+def promote_next(dispatch, run_id, cycle_id, agent_id, head, dispatch_hash_value):
     wo = select_next_eligible(dispatch)
     if not wo:
         return None
@@ -131,6 +135,18 @@ def promote_next(dispatch, run_id):
             break
     json_write(DISPATCH_PATH, dispatch)
     commit_promotion(wo["id"])
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "state_transition",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+            detail={"to_state": "ready"},
+        )
+    )
     write_receipt(
         "PROMOTE",
         run_id=run_id,
@@ -168,10 +184,22 @@ def one_cycle(run_id):
         return 1
 
     wo = select_ready_wo(dispatch)
+    head = git_head()
+    dispatch_hash_value = dispatch_hash()
+    agent_id = "ralph"
+    cycle_id = None
     if not wo:
-        promoted = promote_next(dispatch, run_id)
+        promoted = promote_next(
+            dispatch,
+            run_id,
+            cycle_id,
+            agent_id,
+            head,
+            dispatch_hash_value,
+        )
         if promoted:
             append_status(f"PROMOTE {promoted}")
+            abm_mod.write_aggregates()
             return 0
         dod_ok, _ = run_verify_cmd("dod")
         if dod_ok:
@@ -184,6 +212,7 @@ def one_cycle(run_id):
                 work_order_id=None,
             )
             print("DONE")
+            abm_mod.write_aggregates()
             return 2
         append_status("FAIL DoD=FAIL")
         write_receipt(
@@ -193,16 +222,96 @@ def one_cycle(run_id):
             dispatch_hash_value=dispatch_hash(),
             work_order_id=None,
         )
+        abm_mod.write_aggregates()
         return 1
+
+    cycle_id = abm_mod.next_cycle_id(run_id)
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "cycle_start",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+        )
+    )
+    attempt_id = "attempt-1"
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "attempt_start",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+            detail={"attempt_id": attempt_id},
+        )
+    )
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "verify_start",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+        )
+    )
+    abm_mod.write_aggregates()
 
     acceptance_ok, acceptance_results = run_acceptance(wo)
     scope_ok, scope_errors = verify_mod.check_scope()
     verify_ok, verify_errors = run_verify_work()
     run_verify_cmd("work")
     dod_ok_after, dod_errors_after = run_verify_dod()
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "verify_result",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+            detail={
+                "status": "pass" if (acceptance_ok and scope_ok and verify_ok) else "fail"
+            },
+        )
+    )
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "attempt_end",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+            detail={
+                "attempt_id": attempt_id,
+                "status": "pass" if (acceptance_ok and scope_ok and verify_ok) else "fail",
+            },
+        )
+    )
 
     if acceptance_ok and scope_ok and verify_ok:
         mark_done(dispatch, wo["id"])
+        abm_mod.append_event(
+            abm_mod.build_event(
+                "state_transition",
+                run_id,
+                dispatch_hash_value,
+                head,
+                wo["id"],
+                cycle_id,
+                agent_id,
+                detail={"to_state": "done"},
+            )
+        )
         commit_work(wo["id"])
         write_receipt(
             "COMPLETE",
@@ -213,9 +322,29 @@ def one_cycle(run_id):
         )
         append_status(f"PASS {wo['id']}")
         dispatch = json_read(DISPATCH_PATH)
-        promoted = promote_next(dispatch, run_id)
+        promoted = promote_next(
+            dispatch,
+            run_id,
+            cycle_id,
+            agent_id,
+            head,
+            dispatch_hash_value,
+        )
         if promoted:
             append_status(f"PROMOTE {promoted}")
+            abm_mod.append_event(
+                abm_mod.build_event(
+                    "cycle_end",
+                    run_id,
+                    dispatch_hash_value,
+                    head,
+                    wo["id"],
+                    cycle_id,
+                    agent_id,
+                    detail={"status": "pass"},
+                )
+            )
+            abm_mod.write_aggregates()
             return 0
         dod_ok, _ = run_verify_cmd("dod")
         if dod_ok:
@@ -228,6 +357,19 @@ def one_cycle(run_id):
                 work_order_id=None,
             )
             print("DONE")
+            abm_mod.append_event(
+                abm_mod.build_event(
+                    "cycle_end",
+                    run_id,
+                    dispatch_hash_value,
+                    head,
+                    wo["id"],
+                    cycle_id,
+                    agent_id,
+                    detail={"status": "pass"},
+                )
+            )
+            abm_mod.write_aggregates()
             return 2
         append_status("FAIL DoD=FAIL")
         write_receipt(
@@ -237,6 +379,19 @@ def one_cycle(run_id):
             dispatch_hash_value=dispatch_hash(),
             work_order_id=None,
         )
+        abm_mod.append_event(
+            abm_mod.build_event(
+                "cycle_end",
+                run_id,
+                dispatch_hash_value,
+                head,
+                wo["id"],
+                cycle_id,
+                agent_id,
+                detail={"status": "fail"},
+            )
+        )
+        abm_mod.write_aggregates()
         return 1
 
     append_status(f"FAIL {wo['id']}")
@@ -247,6 +402,19 @@ def one_cycle(run_id):
         dispatch_hash_value=dispatch_hash(),
         work_order_id=None,
     )
+    abm_mod.append_event(
+        abm_mod.build_event(
+            "cycle_end",
+            run_id,
+            dispatch_hash_value,
+            head,
+            wo["id"],
+            cycle_id,
+            agent_id,
+            detail={"status": "fail"},
+        )
+    )
+    abm_mod.write_aggregates()
     return 1
 
 

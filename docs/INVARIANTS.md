@@ -16,5 +16,10 @@
 - Verification is machine-executable, binary, side-effect free, and repeatable.
 - Verification gates progress.
 
+## Guardrail Thresholds
+- Max cycles without completion per Work Order: 3.
+- Max verification fail streak without state change: 3.
+- Max cycles per Work Order: 10.
+
 ## System Boundaries
 - ABM surfaces facts; it does not optimize, schedule, resolve failures, or decide correctness beyond declared verification.

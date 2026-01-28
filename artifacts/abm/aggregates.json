@@ -1,0 +1,32 @@
+{
+  "by_run": {
+    "2026-01-28T00:31:19Z-40d4e9ad": {
+      "attempt_count": 1,
+      "cycle_count": 1,
+      "state_transitions": 0,
+      "verify_fail": 0,
+      "verify_pass": 0,
+      "work_orders": [
+        "WO-0017"
+      ]
+    }
+  },
+  "by_work_order": {
+    "WO-0017": {
+      "attempt_count": 1,
+      "cycle_count": 1,
+      "max_cycle_id": 1,
+      "state_transitions": 0,
+      "verify_fail": 0,
+      "verify_pass": 0
+    }
+  },
+  "event_counts": {
+    "attempt_start": 1,
+    "cycle_start": 1,
+    "verify_start": 1
+  },
+  "meta": {
+    "version": "abm.aggregates.v1"
+  }
+}

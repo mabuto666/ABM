@@ -7,9 +7,11 @@ from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import abm as abm_mod
     from receipt import canonical_json_bytes, RECEIPT_KINDS, TERMINAL_KINDS
     from util import git_diff_name_only, json_read, matches_any, run_cmd
 else:
+    from . import abm as abm_mod
     from .receipt import canonical_json_bytes, RECEIPT_KINDS, TERMINAL_KINDS
     from .util import git_diff_name_only, json_read, matches_any, run_cmd
 
@@ -337,6 +339,99 @@ def check_scope():
     return not errors, errors
 
 
+def _canonical_json(payload):
+    return json.dumps(payload, sort_keys=True, separators=(",", ":"))
+
+
+def check_abm():
+    errors = []
+    dispatch = load_dispatch()
+    work_orders = dispatch.get("work_orders", [])
+    done_ids = [wo.get("id") for wo in work_orders if wo.get("done")]
+
+    events = abm_mod.load_events()
+    if not events:
+        errors = []
+        if abm_mod.AGGREGATES_PATH.exists():
+            errors.append(f"abm events missing: {abm_mod.EVENTS_PATH.as_posix()}")
+        if Path("artifacts/abm").exists() and done_ids:
+            errors.append(f"abm events missing: {abm_mod.EVENTS_PATH.as_posix()}")
+        return not errors, errors
+
+    aggregates_path = abm_mod.AGGREGATES_PATH
+    if not aggregates_path.exists():
+        errors.append(f"abm aggregates missing: {aggregates_path.as_posix()}")
+    else:
+        computed = abm_mod.compute_aggregates(events)
+        try:
+            stored = json_read(aggregates_path)
+        except Exception as exc:
+            errors.append(f"abm aggregates unreadable: {exc}")
+            stored = None
+        if stored is not None and _canonical_json(stored) != _canonical_json(computed):
+            errors.append("abm aggregates mismatch; replay determinism violated")
+
+    events_by_wo = {}
+    timestamps = []
+    for event in events:
+        wo_id = event.get("work_order_id")
+        if isinstance(wo_id, str):
+            events_by_wo.setdefault(wo_id, []).append(event)
+        if isinstance(event.get("timestamp_utc"), str):
+            timestamps.append(event["timestamp_utc"])
+
+    first_event_ts = min(timestamps) if timestamps else None
+    required_event_types = {"cycle_start", "attempt_start", "verify_result", "state_transition"}
+    for wo_id in done_ids:
+        wo_events = events_by_wo.get(wo_id, [])
+        in_scope = bool(wo_events)
+        if not in_scope and isinstance(first_event_ts, str):
+            receipt_dir = Path("receipts") / wo_id
+            if receipt_dir.exists():
+                for path in sorted(receipt_dir.glob("*.json")):
+                    try:
+                        payload = json.loads(path.read_text(encoding="utf-8"))
+                    except json.JSONDecodeError:
+                        continue
+                    if payload.get("kind") == "COMPLETE":
+                        ts = payload.get("timestamp_utc")
+                        if isinstance(ts, str) and ts >= first_event_ts:
+                            in_scope = True
+                        break
+        if not in_scope:
+            continue
+        types = {e.get("event_type") for e in wo_events}
+        missing = required_event_types - types
+        if missing:
+            errors.append(f"abm silent execution for {wo_id}: missing {', '.join(sorted(missing))}")
+
+    for wo_id, wo_events in events_by_wo.items():
+        cycle_count = sum(1 for e in wo_events if e.get("event_type") == "cycle_start")
+        done = wo_id in done_ids
+        if not done and cycle_count > abm_mod.MAX_CYCLES_WITHOUT_COMPLETE:
+            errors.append(f"abm zero progress for {wo_id}: cycles={cycle_count}")
+        if cycle_count > abm_mod.MAX_CYCLES_PER_WORK_ORDER:
+            errors.append(f"abm infinite loop risk for {wo_id}: cycles={cycle_count}")
+
+        fail_streak = 0
+        for event in wo_events:
+            event_type = event.get("event_type")
+            if event_type == "state_transition":
+                fail_streak = 0
+                continue
+            if event_type == "verify_result":
+                detail = event.get("detail", {}) if isinstance(event.get("detail"), dict) else {}
+                if detail.get("status") == "fail":
+                    fail_streak += 1
+                    if fail_streak >= abm_mod.MAX_VERIFY_FAIL_STREAK:
+                        errors.append(f"abm verification deadlock for {wo_id}")
+                        break
+                else:
+                    fail_streak = 0
+
+    return not errors, errors
+
+
 def check_project():
     hooks = json_read(HOOKS_PATH)
     verify_cmd = hooks.get("project", {}).get("verify_cmd", "")
@@ -367,6 +462,7 @@ def run_check(name):
         "schema": check_schema,
         "receipts": check_receipts,
         "scope": check_scope,
+        "abm": check_abm,
         "project": check_project,
         "no_ready_undone": check_no_ready_undone,
     }
@@ -399,9 +495,9 @@ def main():
     if args.check == "schema":
         order = ["schema"]
     elif args.check == "work":
-        order = ["schema", "receipts", "scope", "project"]
+        order = ["schema", "receipts", "scope", "abm", "project"]
     else:
-        order = ["schema", "receipts", "scope", "project", "no_ready_undone"]
+        order = ["schema", "receipts", "scope", "abm", "project", "no_ready_undone"]
 
     return 0 if run_checks(order) else 1
 
