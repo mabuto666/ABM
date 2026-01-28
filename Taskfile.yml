@@ -10,3 +10,8 @@ tasks:
   ralph:
     cmds:
       - python3 .harness/tools/ralph.py --loop
+
+  export:ui:
+    desc: Export ABM UI bundle (results/aggregates/events) to ABM_UI/web/data
+    cmds:
+      - python3 tools/export_ui_bundle.py --out ../ABM_UI/web/data
