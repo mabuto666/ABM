@@ -987,10 +987,10 @@
       "depends_on": [
         "WO-0021"
       ],
-      "done": false,
+      "done": true,
       "id": "WO-0022",
       "priority": 22,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [
