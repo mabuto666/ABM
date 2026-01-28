@@ -1122,8 +1122,8 @@
     {
       "acceptance": [
         {
-          "cmd": "test -f artifacts/abm/benchmarks/results.json",
-          "name": "check-1"
+          "cmd": "python3 .harness/tools/verify.py --check work",
+          "name": "verify-work"
         }
       ],
       "artifacts": {
@@ -1132,10 +1132,10 @@
       "depends_on": [
         "WO-0024"
       ],
-      "done": false,
+      "done": true,
       "id": "WO-0025",
       "priority": 25,
-      "ready": true,
+      "ready": false,
       "role": "WORKER",
       "scope": {
         "allow_globs": [

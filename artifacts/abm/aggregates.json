@@ -24,16 +24,27 @@
       ]
     },
     "2026-01-28T00:46:23Z-a02e8575": {
-      "attempt_count": 4,
-      "cycle_count": 4,
-      "state_transitions": 7,
-      "verify_fail": 0,
+      "attempt_count": 5,
+      "cycle_count": 5,
+      "state_transitions": 8,
+      "verify_fail": 1,
       "verify_pass": 4,
       "work_orders": [
         "WO-0021",
         "WO-0022",
         "WO-0023",
-        "WO-0024"
+        "WO-0024",
+        "WO-0025"
+      ]
+    },
+    "2026-01-28T00:46:56Z-f706f12f": {
+      "attempt_count": 1,
+      "cycle_count": 1,
+      "state_transitions": 1,
+      "verify_fail": 0,
+      "verify_pass": 1,
+      "work_orders": [
+        "WO-0025"
       ]
     }
   },
@@ -101,16 +112,24 @@
       "state_transitions": 2,
       "verify_fail": 0,
       "verify_pass": 1
+    },
+    "WO-0025": {
+      "attempt_count": 2,
+      "cycle_count": 2,
+      "max_cycle_id": 5,
+      "state_transitions": 2,
+      "verify_fail": 1,
+      "verify_pass": 1
     }
   },
   "event_counts": {
-    "attempt_end": 9,
-    "attempt_start": 9,
-    "cycle_end": 8,
-    "cycle_start": 9,
-    "state_transition": 14,
-    "verify_result": 9,
-    "verify_start": 9
+    "attempt_end": 11,
+    "attempt_start": 11,
+    "cycle_end": 10,
+    "cycle_start": 11,
+    "state_transition": 16,
+    "verify_result": 11,
+    "verify_start": 11
   },
   "meta": {
     "version": "abm.aggregates.v1"
