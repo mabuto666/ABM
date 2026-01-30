@@ -1,0 +1,11 @@
+{
+  "max_total_ms": 600000,
+  "max_errors": 0,
+  "max_retries": 0,
+  "max_tokens_total": null,
+  "max_p95_step_ms": {
+    "orc_smoke": 300000,
+    "orc_verify_dod": 300000,
+    "ralph_once": 300000
+  }
+}

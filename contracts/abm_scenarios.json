@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "defaults": {
+    "thresholds": {
+      "max_total_ms": 600000,
+      "max_errors": 0,
+      "max_retries": 10,
+      "max_tokens_total": null,
+      "max_cost_total_usd": null
+    },
+    "steps": {
+      "max_p95_step_ms": {}
+    },
+    "artifacts": {
+      "required": [],
+      "forbidden": []
+    }
+  },
+  "suite": {
+    "min_pass_rate": 1.0,
+    "max_p95_total_ms": 600000,
+    "max_mean_cost_total_usd": null
+  },
+  "scenarios": {
+    "orc_verify_dod": {
+      "thresholds": {},
+      "steps": {
+        "max_p95_step_ms": {
+          "orc_verify_dod": 300000
+        }
+      },
+      "artifacts": {
+        "required": [
+          "events.jsonl",
+          "aggregates.json",
+          "summary.md"
+        ],
+        "forbidden": []
+      }
+    },
+    "orc_smoke": {
+      "thresholds": {},
+      "steps": {
+        "max_p95_step_ms": {
+          "orc_smoke": 300000
+        }
+      },
+      "artifacts": {
+        "required": [
+          "events.jsonl",
+          "aggregates.json",
+          "summary.md"
+        ],
+        "forbidden": []
+      }
+    },
+    "ralph_once": {
+      "thresholds": {},
+      "steps": {
+        "max_p95_step_ms": {
+          "ralph_once": 300000
+        }
+      },
+      "artifacts": {
+        "required": [
+          "events.jsonl",
+          "aggregates.json",
+          "summary.md"
+        ],
+        "forbidden": []
+      }
+    }
+  }
+}

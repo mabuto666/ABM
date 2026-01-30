@@ -5,11 +5,117 @@ tasks:
     cmds:
       - python3 .harness/tools/doctor.py
   verify:
+    env:
+      ORC_NOW_ISO: '{{.ORC_NOW_ISO | default ""}}'
     cmds:
       - python3 .harness/tools/verify.py
+  dod:
+    env:
+      ORC_NOW_ISO: '{{.ORC_NOW_ISO | default ""}}'
+    cmds:
+      - python3 .harness/tools/verify.py --check dod
+  smoke:
+    env:
+      ORC_NOW_ISO: '{{.ORC_NOW_ISO | default ""}}'
+    cmds:
+      - python3 .harness/tools/smoke.py
   ralph:
+    env:
+      ORC_NOW_ISO: '{{.ORC_NOW_ISO | default ""}}'
     cmds:
       - python3 .harness/tools/ralph.py --loop
+
+  sync:harness:
+    desc: Sync ORC harness allowlist and verify DoD
+    cmds:
+      - python3 .harness/tools/sync_orc_harness.py
+      - python3 .harness/tools/verify.py --check dod
+
+  pin:harness:
+    desc: Print ORC commit SHA for docs/HARNESS_UPSTREAM.md
+    cmds:
+      - |
+        python3 - <<'PY'
+        import os
+        import subprocess
+        from pathlib import Path
+
+        orc_root = Path(os.environ.get("ORC_REPO_PATH", "/Users/matthiasnathanael/Documents/Projects/ORC"))
+        if orc_root.is_dir() and (orc_root / ".harness").is_dir():
+            try:
+                result = subprocess.run(
+                    ["git", "rev-parse", "HEAD"],
+                    cwd=orc_root,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+                print(result.stdout.strip() or "UNKNOWN")
+            except Exception:
+                print("UNKNOWN")
+        else:
+            print("UNKNOWN")
+        print("Update docs/HARNESS_UPSTREAM.md with the upstream pin.")
+        PY
+
+  test:abm:
+    desc: Run ABM deterministic fixture test
+    cmds:
+      - python3 .harness/tools/test_abm.py
+
+  test:
+    desc: Run ABM tests
+    cmds:
+      - task: test:abm
+
+  agent:verify_dod:
+    desc: Run agent test for verify --check dod
+    cmds:
+      - python3 .harness/tools/run_agent_test.py --scenario orc_verify_dod
+
+  agent:smoke:
+    desc: Run agent test for smoke
+    cmds:
+      - python3 .harness/tools/run_agent_test.py --scenario orc_smoke
+
+  agent:ralph_once:
+    desc: Run agent test for ralph --once
+    cmds:
+      - python3 .harness/tools/run_agent_test.py --scenario ralph_once
+
+  agent:suite:
+    desc: Run deterministic suite of agent scenarios and gate results
+    cmds:
+      - python3 .harness/tools/run_agent_suite.py --scenarios orc_verify_dod,orc_smoke --runs 5 --concurrency 1
+
+  agent:suite10:
+    cmds:
+      - python3 .harness/tools/run_agent_suite.py --scenarios orc_verify_dod,orc_smoke --runs 10 --concurrency 1
+
+  agent:ralph_suite:
+    cmds:
+      - python3 .harness/tools/run_agent_suite.py --scenarios ralph_once --runs 3 --concurrency 1
+
+  watch:abm:
+    desc: Watch ABM agent events (TUI)
+    cmds:
+      - python3 .harness/tools/watch_abm.py --tui
+
+  serve:abm:
+    desc: Serve ABM agent metrics over HTTP
+    cmds:
+      - python3 .harness/tools/serve_abm.py
+
+  test:agent:
+    desc: Run ABM agent tests (fast)
+    cmds:
+      - task: agent:verify_dod
+      - task: agent:smoke
+
+  test:agent_full:
+    cmds:
+      - task: test:agent
+      - task: agent:suite
 
   export:ui:
     desc: Export ABM UI bundle (results/aggregates/events) to ABM_UI/web/data

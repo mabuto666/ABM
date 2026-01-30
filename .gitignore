@@ -3,3 +3,8 @@ __pycache__/
 receipts/**
 !receipts/.gitkeep
 .DS_Store
+artifacts/abm_runs/
+artifacts/abm_suites/
+artifacts/run_bundles/
+artifacts/adr_cycle_report.json
+artifacts/adr_cycle_report.md
